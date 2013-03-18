@@ -1,2 +1,3 @@
 gis-clique
+Academic project
 ==========
