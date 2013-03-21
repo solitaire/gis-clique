@@ -9,8 +9,9 @@
 \setlength{\parindent}{0in}
 \section{Treść zadania}
 
-Kliką danego grafu nazywamy podgraf, w którym każde dwa wierzchołki są ze sobą połączone. 
-Należy zaprojektować algorytm do znajdowania największej kliki w danym grafie.
+Kliką grafu nazywamy podgraf, w którym każde dwa wierzchołki są ze sobą połączone.
+Największą kliką nazywamy klikę o największej liczbie wierzchołków.
+Należy zaprojektować algorytm do znajdowania największej kliki w~danym grafie.
 
 \section{Założenia}
 
@@ -34,7 +35,8 @@ Macierz jest dana w pliku tekstowym, w którym kolejne $q_{i,j}$ w wierszu $j$ s
 Przez znak biały rozumiemy spację lub tabulator. $q_{i,j}$ różne od 0 będą traktowane jak 1.
 \par\vspace{\baselineskip}
 Wyjściem jest niepusty zbiór numerów wierzchołków, które tworzą największą klikę w podanym grafie. 
-Wierzchołki numerujemy od 0 do $n-1$.
+Wierzchołki numerujemy od 0 do $n-1$. W grafie może istnieć więcej niż jedna największa klika.
+W takim przypadku algorytm zwróci dowolną z nich.
 
 \section{Referencje}
 
