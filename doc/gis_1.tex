@@ -14,9 +14,9 @@ Należy zaprojektować algorytm do znajdowania największej kliki w danym grafie
 
 \section{Założenia}
 
-Wejściem dla algorytmu jest graf nieskierowany dany macierzą kwadratową rzędu n:
+Wejściem dla algorytmu jest graf nieskierowany dany macierzą kwadratową rzędu $n$:
 
-\vspace{1.5\baselineskip}
+\bigskip
 $ 
 \begin{array}{cccc}
 q_{0,0} & q_{1,0} & \ldots & q_{n-1,0} \\
@@ -24,13 +24,16 @@ q_{0,1} & q_{1,1} & \ldots & q_{n-1,1} \\
 \vdots  & \vdots  & \ddots & \vdots  \\
 q_{0,n-1} & q_{1,n-1} & \ldots & q_{n-1,n-1} 
 \end{array}
-, q_{i,j} \in \{0,1\}, 0 < i,j < n
+, q_{i,j} \in \{0,1\}, 0 \leq i,j < n
 $
-\vspace{1.5\baselineskip}
+\bigskip
 
-$q_{i,j}$ równe 0 oznacza, że wierzchołki i oraz j nie są połączone krawędzią. W~przeciwnym razie, wierzchołki są połączone.\\
-
-Wyjściem jest niepusty zbiór numerów wierzchołków, które tworzą największą klikę w podanym grafie.
+$q_{i,j}$ równe 0 oznacza, że wierzchołki i oraz j nie są połączone krawędzią. W~przeciwnym razie, wierzchołki są połączone.
+\par\vspace{\baselineskip}
+Macierz jest dana w pliku tekstowym, w którym kolejne $q_{i,j}$ w wierszu $j$ są oddzielone conajmniej jednym znakiem białym. 
+Przez znak biały rozumiemy spację lub tabulator. $q_{i,j}$ różne od 0 będą traktowane jak 1.
+\par\vspace{\baselineskip}
+Wyjściem jest niepusty zbiór numerów wierzchołków, które tworzą największą klikę w podanym grafie. 
 Wierzchołki numerujemy od 0 do $n-1$.
 
 \section{Referencje}
