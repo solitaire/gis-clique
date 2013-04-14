@@ -8,11 +8,8 @@ void print_and_destroy_cliques(igraph_vector_ptr_t *cliques)
 	for (i = 0; i < igraph_vector_ptr_size(cliques); i++) 
 	{
 		igraph_vector_t *v = VECTOR(*cliques)[i];
-		if (i == 0)
-		{
-			igraph_vector_sort(v);
-			igraph_vector_print(v);
-		}
+		igraph_vector_sort(v);
+		igraph_vector_print(v);
 		igraph_vector_destroy(v);
 		igraph_free(v);
 	}
