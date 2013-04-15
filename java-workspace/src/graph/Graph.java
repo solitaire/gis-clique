@@ -12,6 +12,8 @@ public class Graph
 	private final Vertices[] neighbors;
 	/** Recent maximum clique. */
 	private Vertices maximumClique;
+	/** Recent potential clique. */
+	private Vertices compsub;
 
 	public Graph(InputStream stream)
 	{
@@ -36,20 +38,20 @@ public class Graph
 	public Vertices getMaximumClique(boolean faster)
 	{
 		maximumClique = new Vertices();
-		final Vertices r = new Vertices();
-		final Vertices p = new Vertices();
+		compsub = new Vertices();
+		final Vertices candidates = new Vertices();
 		for (int v = 0; v < n; v++)
 		{
-			p.add(v);
+			candidates.add(v);
 		}
-		final Vertices x = new Vertices();
+		final Vertices not = new Vertices();
 		if (faster)
 		{
-			bronKerbosh2(r, p, x);
+			bronKerbosh2(candidates, not);
 		}
 		else
 		{
-			bronKerbosh1(r, p, x);
+			bronKerbosh1(candidates, not);
 		}
 		return maximumClique;
 	}
@@ -72,51 +74,48 @@ public class Graph
 	}
 
 	/** Bron-Kerbosh version 1.
-	 * @param r Potential clique.
-	 * @param p Candidates.
-	 * @param x Excluded, already taken as candidates. */
-	private void bronKerbosh1(Vertices r, Vertices p, Vertices x)
+	 * @param candidates Set of candidates.
+	 * @param not Set of excluded vertices, already taken as candidates. */
+	private void bronKerbosh1(Vertices candidates, Vertices not)
 	{
-		if (p.isEmpty() && x.isEmpty())
+		if (candidates.isEmpty() && not.isEmpty())
 		{
-			if (maximumClique.size() < r.size())
+			if (maximumClique.size() < compsub.size())
 			{
-				maximumClique = new Vertices(r);
+				maximumClique = new Vertices(compsub);
 			}
 			return;
 		}
 
-		final Integer[] candidates = p.toArray(new Integer[0]);
-		for (final int v : candidates)
+		final Integer[] candidatesToCheck = candidates.toArray(new Integer[0]);
+		for (final int v : candidatesToCheck)
 		{
-			p.remove(v);
+			compsub.add(v);
 
-			final Vertices rNew = new Vertices(r);
-			rNew.add(v);
+			candidates.remove(v);
+			final Vertices newCandidates = new Vertices(candidates);
+			newCandidates.retainAll(neighbors[v]);
 
-			final Vertices pNew = new Vertices(p);
-			pNew.retainAll(neighbors[v]);
+			final Vertices newNot = new Vertices(not);
+			newNot.retainAll(neighbors[v]);
 
-			final Vertices xNew = new Vertices(x);
-			xNew.retainAll(neighbors[v]);
+			bronKerbosh1(newCandidates, newNot);
 
-			bronKerbosh1(rNew, pNew, xNew);
-
-			x.add(v);
+			compsub.remove(v);
+			not.add(v);
 		}
 	}
 
 	/** Bron-Kerbosh version 2.
-	 * @param r Potential clique.
-	 * @param p Candidates.
-	 * @param x Excluded, already taken as candidates. */
-	private void bronKerbosh2(Vertices r, Vertices p, Vertices x)
+	 * @param candidates Set of candidates.
+	 * @param not Set of excluded vertices, already taken as candidates. */
+	private void bronKerbosh2(Vertices candidates, Vertices not)
 	{
-		if (p.isEmpty() && x.isEmpty())
+		if (candidates.isEmpty() && not.isEmpty())
 		{
-			if (maximumClique.size() < r.size())
+			if (maximumClique.size() < compsub.size())
 			{
-				maximumClique = new Vertices(r);
+				maximumClique = new Vertices(compsub);
 			}
 			return;
 		}
@@ -124,8 +123,8 @@ public class Graph
 		// Choose pivot. Pivot is a vertex in the (P union X) set with the highest vertex degree.
 		int pivot = -1;
 		int maxDegree = -1;
-		final Vertices union = new Vertices(p);
-		union.addAll(x);
+		final Vertices union = new Vertices(candidates);
+		union.addAll(not);
 		for (final int v : union)
 		{
 			final int degree = neighbors[v].size();
@@ -137,25 +136,24 @@ public class Graph
 		}
 
 		// Remove pivot's neighbors from candidates.
-		final Vertices candidates = new Vertices(p);
-		candidates.removeAll(neighbors[pivot]);
+		final Vertices candidatesToCheck = new Vertices(candidates);
+		candidatesToCheck.removeAll(neighbors[pivot]);
 
-		for (final int v : candidates)
+		for (final int v : candidatesToCheck)
 		{
-			p.remove(v);
+			compsub.add(v);
 
-			final Vertices rNew = new Vertices(r);
-			rNew.add(v);
+			candidates.remove(v);
+			final Vertices newCandidates = new Vertices(candidates);
+			newCandidates.retainAll(neighbors[v]);
 
-			final Vertices pNew = new Vertices(p);
-			pNew.retainAll(neighbors[v]);
+			final Vertices newNot = new Vertices(not);
+			newNot.retainAll(neighbors[v]);
 
-			final Vertices xNew = new Vertices(x);
-			xNew.retainAll(neighbors[v]);
+			bronKerbosh2(newCandidates, newNot);
 
-			bronKerbosh2(rNew, pNew, xNew);
-
-			x.add(v);
+			compsub.remove(v);
+			not.add(v);
 		}
 	}
 }
