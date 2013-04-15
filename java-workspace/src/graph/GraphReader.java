@@ -14,7 +14,7 @@ public class GraphReader
 			scanner.next();
 			scanner.next();
 			scanner.next();
-			int n = scanner.nextInt();
+			final int n = scanner.nextInt();
 			scanner.next();
 			adjacencyMatrix = new boolean[n][n];
 			for (int y = 0; y < n; y++)

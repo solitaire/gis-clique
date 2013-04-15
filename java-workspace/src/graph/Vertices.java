@@ -21,8 +21,8 @@ public class Vertices extends TreeSet<Integer>
 	@Override
 	public String toString()
 	{
-		StringBuilder result = new StringBuilder();
-		Iterator<Integer> it = iterator();
+		final StringBuilder result = new StringBuilder();
+		final Iterator<Integer> it = iterator();
 		if (it.hasNext())
 		{
 			result.append(it.next());

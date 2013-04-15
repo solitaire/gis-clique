@@ -115,10 +115,12 @@ public class Graph
 			return;
 		}
 
-		// Choose pivot. Pivot will be a vertex in the candidates with the highest vertex degree.
+		// Choose pivot. Pivot is a vertex in the (P union X) set with the highest vertex degree.
 		int pivot = -1;
 		int maxDegree = -1;
-		for (final int v : p)
+		final Vertices union = new Vertices(p);
+		union.addAll(x);
+		for (final int v : union)
 		{
 			final int degree = neighbors[v].size();
 			if (maxDegree < degree)
@@ -128,8 +130,8 @@ public class Graph
 			}
 		}
 
-		// We remove pivot's neighbors from candidates.
-		Vertices candidates = new Vertices(p);
+		// Remove pivot's neighbors from candidates.
+		final Vertices candidates = new Vertices(p);
 		candidates.removeAll(neighbors[pivot]);
 
 		for (final int v : candidates)
