@@ -77,9 +77,12 @@ public class Graph
 	 * @param x Excluded, already taken as candidates. */
 	private void bronKerbosh1(Vertices r, Vertices p, Vertices x)
 	{
-		if (p.isEmpty() && x.isEmpty() && (maximumClique.size() < r.size()))
+		if (p.isEmpty() && x.isEmpty())
 		{
-			maximumClique = new Vertices(r);
+			if (maximumClique.size() < r.size())
+			{
+				maximumClique = new Vertices(r);
+			}
 			return;
 		}
 
@@ -109,9 +112,12 @@ public class Graph
 	 * @param x Excluded, already taken as candidates. */
 	private void bronKerbosh2(Vertices r, Vertices p, Vertices x)
 	{
-		if (p.isEmpty() && x.isEmpty() && (maximumClique.size() < r.size()))
+		if (p.isEmpty() && x.isEmpty())
 		{
-			maximumClique = new Vertices(r);
+			if (maximumClique.size() < r.size())
+			{
+				maximumClique = new Vertices(r);
+			}
 			return;
 		}
 
@@ -147,7 +153,7 @@ public class Graph
 			final Vertices xNew = new Vertices(x);
 			xNew.retainAll(neighbors[v]);
 
-			bronKerbosh1(rNew, pNew, xNew);
+			bronKerbosh2(rNew, pNew, xNew);
 
 			x.add(v);
 		}
