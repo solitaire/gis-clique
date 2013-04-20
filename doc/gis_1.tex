@@ -1,15 +1,19 @@
 \documentclass[12pt, a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{polski}
+\usepackage{algorithm}% http://ctan.org/pkg/algorithms
+\usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
 \title{\textbf{Poszukiwanie największej kliki w~grafie}}
-\author{Anna Stępień, Adam Stelmaszczyk}
+\author{Anna Stępień \\ Adam Stelmaszczyk}
 \date{}
 \setlength{\parindent}{0in}
 \renewcommand\refname{Referencje}
 
 \begin{document}
 \maketitle
+\tableofcontents
 
+\newpage
 \section{Zadanie}
 
 Kliką grafu nazywamy podgraf, w którym każde dwa wierzchołki są ze sobą połączone.
@@ -44,6 +48,97 @@ W~takim przypadku algorytm zwróci dowolną z~nich.
 
 Realizowana aplikacja będzie pracowała w~trybie konsolowym, z~ewentualną możliwością specyfikacji dodatkowych parametrów.
 W~projekcie zostanie wykorzystany algorytm Brona--Kerboscha \cite{bk}.
+
+\section{Algorytm}
+Algorytm Brona--Kerboscha jest rekurencyjnym algorytmem z nawrotami, który umożliwia poszukiwanie największych klik w zadanym grafie niezorientowanym.
+
+Domyślnie algorytm zwraca wszystkie maksymalne kliki, tj. podzbiory wierzchołków grafu wejściowego do których nie można dodać już ani jednego wierzchołka. W algorytmie wprowadzona zostanie zmiana, dzięki której zwracana będzie największa ze znalezionych klik, charakteryzująca się największą liczbą wierzchołków.
+
+
+\subsection{Pseudokod}
+\begin{algorithm}[!htb]
+\caption{Algorytm Brona--Kerboscha (wersja podstawowa)}\label{bron1}
+\begin{algorithmic}[1]
+\Function{bron\_kerbosch}{$compsub,candidates,not$}
+	\If{$candidates = \emptyset$ \textbf{and} $not = \emptyset$}
+		 \State \Return{$compsub$}\Comment Maksymalna klika
+	\Else
+	\For{\textbf{each} $v$ in $candidates$}
+		\State $candidates \gets candidates \setminus \{v\}$
+		\State $new\_compsub \gets compsub \cup \{v\}$
+		\State $new\_candidates \gets candidates \cap neighbors(v)$
+		\State $new\_not \gets not \cap neighbors(v)$
+		\State\Call{bron\_kerbosch}{$new\_compsub, new\_candidates, new\_not$}
+		\State $compsub \gets compsub \cup \{v\}$
+	\EndFor
+	\EndIf
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[!htb]
+\caption{Algorytm Brona--Kerboscha (wersja rozszerzona)}\label{bron2}
+\begin{algorithmic}[1]
+\State $compsub \gets \emptyset$
+\State $candidates \gets V(G)$
+\State $not \gets \emptyset$
+\State $maximum\_clique \gets \emptyset$
+\Function{bron\_kerbosch}{$candidates,not$}
+	\If{$candidates = \emptyset$ \textbf{and} $not = \emptyset$}
+		\If{$size(maximum\_clique) < size(compsub)$}
+		 	\State $maximum\_clique \gets compsub$
+		 \EndIf
+		 \State \Return{$maximum\_clique$}\Comment Maksymalna klika
+	\Else
+	\State $pivot \gets maxdeg$
+	\State $candidates\_to\_check \gets candidates \setminus neighbors(pivot)$
+	\For{\textbf{each} $v$ in $candidates\_to\_check$}
+		\State $compsub \gets compsub \cup \{v\}$
+		\State $candidates \gets candidates \setminus \{v\}$
+		\State $new\_candidates \gets candidates \cap neighbors(v)$
+		\State $new\_not \gets not \cap neighbors(v)$
+		\State\Call{bron\_kerbosch}{$new\_candidates, new\_not$}
+		\State $compsub \gets compsub \setminus \{v\}$
+		\State $not \gets not \cup \{v\}$
+	\EndFor
+	\EndIf
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\newpage
+\subsection{Opis działania}
+Istotą działania przedstawionego algorytmu jest utrzymywanie trzech rozłącznych zbiorów: $compsub$, $candidates$ oraz $not$.
+
+Algorytm Brona--Kerboscha znajduje maksymalne kliki składające się ze wszystkich wierzchołków należących do zbioru $compsub$, niektórych należących do zbioru $candidates$, i z żadnego, który należy do zbioru $not$.
+
+Poniżej przedstawiona została charakterystyka każdego ze zbiorów wykorzystywanych przez algorytm:
+\begin{itemize}
+	\item $compsub$ 
+	
+	do zbioru należą wszystkie wierzchołki grafu, które tworzą powstającą klikę.
+	\item $candidates$
+	
+	do zbioru należą wierzchołki grafu, które mogą posłużyć do rozszerzenia zbioru $compsub$.
+	\item $not$ 
+	
+	do zbioru należą te wierzchołki, które były już wcześniej wykorzystane do rozszerzenia zbioru $compsub$.
+\end{itemize}
+
+Należy zauważyć, iż wszystkie wierzchołki, które są połączone z każdym wierzchołkiem należącym do zbioru $compsub$ znajdują się albo w zbiorze $candidates$ albo $not$.
+
+\bigskip
+Zmodyfikowana wersja algorytmu Brona--Kerboscha wprowadza pojęcie wierzchołka zwrotnego (dalej oznaczanego $pivot$), który wybierany jest ze zbioru $candidates \cup not$ jako wierzchołek o największym stopniu.
+
+\bigskip
+W każdym rekurencyjnym wywołaniu algorytmu rozważane są wierzchołki należące do zbioru $candidates$. Jeśli zbiory $candidates$ i $not$ są puste, sprawdzane jest czy znaleziona klika (oparta na wierzchołkach ze zbioru $compsub$) jest większa od największej dotychczas znalezionej kliki. Jeśli tak, to znaleziona klika staje się maksymalną i jest zwracana przez algorytm, w przeciwnym wypadku zwracana jest największa dotychczas znaleziona klika.
+
+W przypadku, gdy zbiory $candidates$ i $not$ nie są puste, dla każdego wierzchołka ze zbioru $candidates \setminus neighbors(pivot)$ następuje rekurencyjne wywołanie algorytmu, w którym bieżący wierzchołek $v$ dodawany jest do zbioru $compsub$ i usuwany ze zbioru $candidates$, a w zbiorach $candidates$ i $not$ pozostawiane są tylko te wierzchołki grafu, które są sąsiadami wierzchołka $v$. Następnie, wierzchołek $v$ jest dodawany do zbioru $not$ jako już wykorzystany do rozszerzenia kliki oraz usuwany ze zbioru $compsub$.
+
+\section{Struktury danych}
+\section{Testy}
+\subsection{Badanie poprawności zwracanych wyników}
+\subsection{Badanie czasu wykonania dla różnych typów grafów}
 
 \bibliographystyle{plain}
 \bibliography{references}
