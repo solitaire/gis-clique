@@ -141,6 +141,12 @@ W przypadku, gdy zbiory $candidates$ i $not$ nie są puste, dla każdego wierzch
 Wynikiem działania algorytmu jest zbiór $biggest\_clique$, który początkowo inicjowany jest jako zbiór pusty. W przypadku, gdy znaleziona zostanie największa klika, zbiór ten zawiera wierzchołki ją tworzące.
 
 \section{Struktury danych}
+\paragraph{Graf}
+Do reprezentacji grafu zostanie wykorzystana macierz sąsiedztwa, zaimplementowana jako dwuwymiarowa tablica wartości boolowskich.
+
+\paragraph{Zbiory wierzchołków ($compsub$, $candidates$, $not$, $biggest\_clique$)}
+Zbiory przechowujące wierzchołki zostaną zaimplementowane jako klasa $Vertices$ dziedzicząca po klasie $TreeSet$ języka Java.
+
 \section{Testy}
 \subsection{Badanie poprawności zwracanych wyników}
 \subsection{Badanie czasu wykonania dla różnych typów grafów}
