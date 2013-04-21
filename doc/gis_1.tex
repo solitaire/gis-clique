@@ -17,9 +17,9 @@
 \section{Zadanie}
 
 Kliką grafu nazywamy podgraf, w którym każde dwa wierzchołki są ze sobą połączone.
+Maksymalną kliką nazywamy klikę, do której nie można dodać ani jednego wierzchołka więcej, tak aby razem z nią nadal tworzył klikę.
 Największą kliką nazywamy klikę o~największej liczbie wierzchołków.
-Celem zadania jest implementacja wybranego algorytmu znajdującego największa klikę
-w~grafie oraz analiza otrzymanych wyników.
+Celem zadania jest implementacja wybranego algorytmu znajdującego największa klikę w~grafie oraz analiza otrzymanych wyników.
 
 \section{Założenia}
 
@@ -50,18 +50,22 @@ Realizowana aplikacja będzie pracowała w~trybie konsolowym, z~ewentualną moż
 W~projekcie zostanie wykorzystany algorytm Brona--Kerboscha \cite{bk}.
 
 \section{Algorytm}
-Algorytm Brona--Kerboscha jest rekurencyjnym algorytmem z nawrotami, który umożliwia poszukiwanie największych klik w zadanym grafie niezorientowanym.
+Algorytm Brona--Kerboscha jest rekurencyjnym algorytmem z nawrotami, który umożliwia poszukiwanie maksymalnych klik w zadanym grafie niezorientowanym.
 
-Domyślnie algorytm zwraca wszystkie maksymalne kliki, tj. podzbiory wierzchołków grafu wejściowego do których nie można dodać już ani jednego wierzchołka. W algorytmie wprowadzona zostanie zmiana, dzięki której zwracana będzie największa ze znalezionych klik, charakteryzująca się największą liczbą wierzchołków.
+Domyślnie algorytm zwraca wszystkie maksymalne kliki. W algorytmie wprowadzona zostanie zmiana, dzięki której zwracana będzie największa ze znalezionych maksymalnych klik, charakteryzująca się największą liczbą wierzchołków.
 
 
 \subsection{Pseudokod}
 \begin{algorithm}[!htb]
 \caption{Algorytm Brona--Kerboscha (wersja podstawowa)}\label{bron1}
 \begin{algorithmic}[1]
+\State $compsub \gets \emptyset$
+\State $candidates \gets V(G)$
+\State $not \gets \emptyset$
+\State $cliques \gets \emptyset$
 \Function{bron\_kerbosch}{$compsub,candidates,not$}
 	\If{$candidates = \emptyset$ \textbf{and} $not = \emptyset$}
-		 \State \Return{$compsub$}\Comment Maksymalna klika
+		 \State $cliques \gets cliques \cup \{compsub\}$\Comment Maksymalna klika
 	\Else
 	\For{\textbf{each} $v$ in $candidates$}
 		\State $candidates \gets candidates \setminus \{v\}$
@@ -82,15 +86,14 @@ Domyślnie algorytm zwraca wszystkie maksymalne kliki, tj. podzbiory wierzchołk
 \State $compsub \gets \emptyset$
 \State $candidates \gets V(G)$
 \State $not \gets \emptyset$
-\State $maximum\_clique \gets \emptyset$
+\State $biggest\_clique \gets \emptyset$
 \Function{bron\_kerbosch}{$candidates,not$}
 	\If{$candidates = \emptyset$ \textbf{and} $not = \emptyset$}
-		\If{$size(maximum\_clique) < size(compsub)$}
-		 	\State $maximum\_clique \gets compsub$
+		\If{$size(biggest\_clique) < size(compsub)$}
+		 	\State $biggest\_clique \gets compsub$\Comment Największa klika
 		 \EndIf
-		 \State \Return{$maximum\_clique$}\Comment Maksymalna klika
 	\Else
-	\State $pivot \gets maxdeg$
+	\State $pivot \gets vertex\_with\_maxdeg(candidates \cup not)$
 	\State $candidates\_to\_check \gets candidates \setminus neighbors(pivot)$
 	\For{\textbf{each} $v$ in $candidates\_to\_check$}
 		\State $compsub \gets compsub \cup \{v\}$
@@ -131,9 +134,11 @@ Należy zauważyć, iż wszystkie wierzchołki, które są połączone z każdym
 Zmodyfikowana wersja algorytmu Brona--Kerboscha wprowadza pojęcie wierzchołka zwrotnego (dalej oznaczanego $pivot$), który wybierany jest ze zbioru $candidates \cup not$ jako wierzchołek o największym stopniu.
 
 \bigskip
-W każdym rekurencyjnym wywołaniu algorytmu rozważane są wierzchołki należące do zbioru $candidates$. Jeśli zbiory $candidates$ i $not$ są puste, sprawdzane jest czy znaleziona klika (oparta na wierzchołkach ze zbioru $compsub$) jest większa od największej dotychczas znalezionej kliki. Jeśli tak, to znaleziona klika staje się maksymalną i jest zwracana przez algorytm, w przeciwnym wypadku zwracana jest największa dotychczas znaleziona klika.
+W każdym rekurencyjnym wywołaniu algorytmu rozważane są wierzchołki należące do zbioru $candidates$. Jeśli zbiory $candidates$ i $not$ są puste, sprawdzane jest czy znaleziona maksymalna klika (oparta na wierzchołkach ze zbioru $compsub$) jest większa od największej dotychczas znalezionej kliki. Jeśli tak, to znaleziona klika staje się największą, w przeciwnym wypadku największa klika pozostawiana jest bez zmian.
 
 W przypadku, gdy zbiory $candidates$ i $not$ nie są puste, dla każdego wierzchołka ze zbioru $candidates \setminus neighbors(pivot)$ następuje rekurencyjne wywołanie algorytmu, w którym bieżący wierzchołek $v$ dodawany jest do zbioru $compsub$ i usuwany ze zbioru $candidates$, a w zbiorach $candidates$ i $not$ pozostawiane są tylko te wierzchołki grafu, które są sąsiadami wierzchołka $v$. Następnie, wierzchołek $v$ jest dodawany do zbioru $not$ jako już wykorzystany do rozszerzenia kliki oraz usuwany ze zbioru $compsub$.
+
+Wynikiem działania algorytmu jest zbiór $biggest\_clique$, który początkowo inicjowany jest jako zbiór pusty. W przypadku, gdy znaleziona zostanie największa klika, zbiór ten zawiera wierzchołki ją tworzące.
 
 \section{Struktury danych}
 \section{Testy}
