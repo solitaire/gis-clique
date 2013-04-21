@@ -22,7 +22,11 @@ Największą kliką nazywamy klikę o~największej liczbie wierzchołków.
 Celem zadania jest implementacja wybranego algorytmu znajdującego największa klikę w~grafie oraz analiza otrzymanych wyników.
 
 \section{Założenia}
+Realizowana aplikacja będzie pracowała w~trybie konsolowym, z~ewentualną możliwością specyfikacji dodatkowych parametrów.
+W~projekcie zostanie wykorzystany zmodyfikowany algorytm Brona--Kerboscha \cite{bk}, dokładniej opisany w sekcji \ref{bron_kerbosch}.
+Do implementacji zadania wykorzystany zostanie język Java.
 
+\subsection{Dane wejściowe}
 Wejściem dla algorytmu jest graf nieskierowany dany macierzą o~$n$~wierszach i~$n$~kolumnach:
 
 \bigskip
@@ -39,21 +43,33 @@ $
 
 $q_{i,j}$ równe 0 oznacza, że wierzchołki i oraz j nie są połączone krawędzią. W~przeciwnym razie, wierzchołki są połączone.
 \par\vspace{\baselineskip}
-Macierz jest dana w pliku tekstowym, w którym kolejne $q_{i,j}$ w wierszu $j$ są oddzielone co najmniej jednym znakiem białym. 
+Macierz jest dana w pliku tekstowym, w formacie FullMatrix\footnote{{http://www.analytictech.com/networks/dataentry.htm}}, w którym pierwszy wiersz specyfikuje liczbę wierszy macierzy, następny informuje o początku danych, natomiast kolejne wiersze definiują właściwą macierz sąsiedztwa grafu.
+
+Kolejne $q_{i,j}$ w wierszu $j$ są oddzielone co najmniej jednym znakiem białym. 
 Przez znak biały rozumiemy spację lub tabulator. $q_{i,j}$ różne od 0 będą traktowane jak 1.
-\par\vspace{\baselineskip}
+\subsection{Dane wyjściowe}
 Wyjściem jest niepusty zbiór numerów wierzchołków, które tworzą największą klikę w~podanym grafie. 
 Wierzchołki numerujemy od 0 do $n-1$. W~grafie może istnieć więcej niż jedna największa klika.
-W~takim przypadku algorytm zwróci dowolną z~nich.
+W~takim przypadku algorytm zwróci pierwszą ze znalezionych klik.
+\subsection{Sytuacje wyjątkowe}
+Problemami, które mogą wystąpić podczas działania aplikacji są:
+\begin{itemize}
+	\item Błędny format danych wejściowych,
+	\item Przepełnienie stosu spowodowane zbyt głębokim poziomem rekurencji.
 
-Realizowana aplikacja będzie pracowała w~trybie konsolowym, z~ewentualną możliwością specyfikacji dodatkowych parametrów.
-W~projekcie zostanie wykorzystany algorytm Brona--Kerboscha \cite{bk}.
+\bigskip
+W przypadku, gdy algorytm otrzyma na wejściu błędne dane np. liczba wierszy macierzy będzie niezgodna z zadeklarowaną na początku pliku z danymi, użytkownik zostanie poinformowany o zaistniałej sytuacji a dalsze działanie programu zostanie przerwane.
 
+\bigskip
+Ze względu na rekurencyjny charakter algorytmu Brona--Kerboscha może się zdarzyć, iż dla pewnych danych wejściowych algorytm nie będzie w stanie zwrócić wyniku ze względu na ograniczoną pojemność stosu.
+Próbą rozwiązania tego problemu mogłaby być iteracyjna implementacja algorytmu.
+
+\end{itemize}
 \section{Algorytm}
+\label{bron_kerbosch}
 Algorytm Brona--Kerboscha jest rekurencyjnym algorytmem z nawrotami, który umożliwia poszukiwanie maksymalnych klik w zadanym grafie niezorientowanym.
 
 Domyślnie algorytm zwraca wszystkie maksymalne kliki. W algorytmie wprowadzona zostanie zmiana, dzięki której zwracana będzie największa ze znalezionych maksymalnych klik, charakteryzująca się największą liczbą wierzchołków.
-
 
 \subsection{Pseudokod}
 \begin{algorithm}[!htb]
