@@ -165,11 +165,13 @@ Zbiory przechowujące wierzchołki zostaną zaimplementowane jako klasa $Vertice
 
 \section{Testy}
 Istotną częścią realizowanego zadania jest przeprowadzenie testów związanych zarówno z poprawnością zwracanych wyników jak również wpływem danych wejściowych na czas wykonania algorytmu.
+
 \subsection{Badanie poprawności zwracanych wyników}
-Do weryfikacji poprawności zwracanych przez algorytm wyników zostanie wykorzystana biblioteka igraph, która udostępnia m.in funkcję wyznaczającą maksymalne kliki w zadanym grafie. Podczas testowania planujemy wykorzystać dane zwrócone przez bibliotekę igraph jako rozwiązania referencyjne, które następnie posłużą do porównania z wynikami otrzymanymi przez zaimplementowany algorytm. Rozwiązanie, a więc największa klika zwrócona przez algorytm jest poprawna wtedy, gdy znajduje się na liście rozwiązań referencyjnych.
+Do weryfikacji poprawności zwracanych przez algorytm wyników zostanie wykorzystana biblioteka igraph\footnote{http://igraph.sourceforge.net/}, która udostępnia m.in funkcję wyznaczającą maksymalne kliki w zadanym grafie. Podczas testowania planujemy wykorzystać dane zwrócone przez bibliotekę igraph jako rozwiązania referencyjne, które następnie posłużą do porównania z wynikami otrzymanymi przez zaimplementowany algorytm. Rozwiązanie, a więc największa klika zwrócona przez algorytm jest poprawna wtedy, gdy znajduje się na liście rozwiązań referencyjnych.
 
 Proces generowania rozwiązań referencyjnych oraz porównywania wyników zostanie zautomatyzowany.
 \subsection{Badanie czasu wykonania dla różnych typów grafów}
+Z punktu widzenia analizy zaimplementowanego algorytmu istotne jest zbadanie jego zachowania dla różnych typów grafów. W szczególności przeprowadzone zostaną eksperymenty na zestawach grafów o zróżnicowanej gęstości.
 
 \bibliographystyle{plain}
 \bibliography{references}
