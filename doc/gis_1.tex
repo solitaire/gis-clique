@@ -54,8 +54,8 @@ W~takim przypadku algorytm zwróci pierwszą ze znalezionych klik.
 \subsection{Sytuacje wyjątkowe}
 Problemami, które mogą wystąpić podczas działania aplikacji są:
 \begin{itemize}
-	\item Błędny format danych wejściowych,
-	\item Przepełnienie stosu spowodowane zbyt głębokim poziomem rekurencji.
+	\item błędny format danych wejściowych,
+	\item przepełnienie stosu spowodowane zbyt głębokim poziomem rekurencji.
 
 \bigskip
 W przypadku, gdy algorytm otrzyma na wejściu błędne dane np. liczba wierszy macierzy będzie niezgodna z zadeklarowaną na początku pliku z danymi, użytkownik zostanie poinformowany o zaistniałej sytuacji a dalsze działanie programu zostanie przerwane.
@@ -72,6 +72,7 @@ Algorytm Brona--Kerboscha jest rekurencyjnym algorytmem z nawrotami, który umo�
 Domyślnie algorytm zwraca wszystkie maksymalne kliki. W algorytmie wprowadzona zostanie zmiana, dzięki której zwracana będzie największa ze znalezionych maksymalnych klik, charakteryzująca się największą liczbą wierzchołków.
 
 \subsection{Pseudokod}
+Na poniższym listingu przedstawiona została podstawowa wersja algorytmu Brona--Kerboscha. 
 \begin{algorithm}[!htb]
 \caption{Algorytm Brona--Kerboscha (wersja podstawowa)}\label{bron1}
 \begin{algorithmic}[1]
@@ -155,6 +156,8 @@ W każdym rekurencyjnym wywołaniu algorytmu rozważane są wierzchołki należ�
 W przypadku, gdy zbiory $candidates$ i $not$ nie są puste, dla każdego wierzchołka ze zbioru $candidates \setminus neighbors(pivot)$ następuje rekurencyjne wywołanie algorytmu, w którym bieżący wierzchołek $v$ dodawany jest do zbioru $compsub$ i usuwany ze zbioru $candidates$, a w zbiorach $candidates$ i $not$ pozostawiane są tylko te wierzchołki grafu, które są sąsiadami wierzchołka $v$. Następnie, wierzchołek $v$ jest dodawany do zbioru $not$ jako już wykorzystany do rozszerzenia kliki oraz usuwany ze zbioru $compsub$.
 
 Wynikiem działania algorytmu jest zbiór $biggest\_clique$, który początkowo inicjowany jest jako zbiór pusty. W przypadku, gdy znaleziona zostanie największa klika, zbiór ten zawiera wierzchołki ją tworzące.
+
+\subsection{Analiza złożoności}
 
 \section{Struktury danych}
 \paragraph{Graf}
