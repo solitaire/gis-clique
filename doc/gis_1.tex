@@ -22,7 +22,8 @@ Największą kliką nazywamy klikę o~największej liczbie wierzchołków.
 Celem zadania jest implementacja wybranego algorytmu znajdującego największa klikę w~grafie oraz analiza otrzymanych wyników.
 
 \section{Założenia}
-Realizowana aplikacja będzie pracowała w~trybie konsolowym, z~ewentualną możliwością specyfikacji dodatkowych parametrów.
+Realizowana aplikacja będzie pracowała w~trybie konsolowym i będzie przyjmowała pliki z danymi przekazane na strumień wejściowy.
+
 W~projekcie zostanie wykorzystany zmodyfikowany algorytm Brona--Kerboscha \cite{bk}, dokładniej opisany w sekcji \ref{bron_kerbosch}.
 Do implementacji zadania wykorzystany zostanie język Java.
 
@@ -44,6 +45,22 @@ $
 $q_{i,j}$ równe 0 oznacza, że wierzchołki i oraz j nie są połączone krawędzią. W~przeciwnym razie, wierzchołki są połączone.
 \par\vspace{\baselineskip}
 Macierz jest dana w pliku tekstowym, w formacie FullMatrix\footnote{{http://www.analytictech.com/networks/dataentry.htm}}, w którym pierwszy wiersz specyfikuje liczbę wierszy macierzy, następny informuje o początku danych, natomiast kolejne wiersze definiują właściwą macierz sąsiedztwa grafu.
+
+\newpage
+Poniżej przedstawiono przykładowy, poprawny plik wejściowy.
+
+\bigskip
+DL N = 4 \\
+Data: \\
+$ 
+\begin{array}{cccc}
+0 & 1 & 0 & 0 \\
+1 & 0 & 1 & 1 \\
+0 & 1 & 0 & 1 \\
+0 & 1 & 1 & 0
+\end{array}
+$
+\bigskip
 
 Kolejne $q_{i,j}$ w wierszu $j$ są oddzielone co najmniej jednym znakiem białym. 
 Przez znak biały rozumiemy spację lub tabulator. $q_{i,j}$ różne od 0 będą traktowane jak 1.
