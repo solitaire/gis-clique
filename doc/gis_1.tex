@@ -175,7 +175,8 @@ W przypadku, gdy zbiory $candidates$ i $not$ nie są puste, dla każdego wierzch
 Wynikiem działania algorytmu jest zbiór $biggest\_clique$, który początkowo inicjowany jest jako zbiór pusty. W przypadku, gdy znaleziona zostanie największa klika, zbiór ten zawiera wierzchołki ją tworzące.
 
 \subsection{Analiza złożoności}
-
+Pesymistyczna złożoność przedstawionego algorytmu wynosi $O(3^{n/3})$ i wynika z górnego ograniczenia na liczbę maksymalnych klik w grafie o n wierzchołkach.
+Ze względu na fakt, iż algorytm jest silnie zależny zarówno od rozmiaru danych i typu zadanego na wejściu grafu, nie jest możliwe precyzyjne określenie średniej złożoności obliczeniowej.
 \section{Struktury danych}
 \paragraph{Graf}
 Do reprezentacji grafu zostanie wykorzystana macierz sąsiedztwa, zaimplementowana jako dwuwymiarowa tablica wartości boolowskich.
