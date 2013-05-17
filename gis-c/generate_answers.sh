@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ ! -f "gis" ]
 then
@@ -8,8 +8,8 @@ fi
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 
-for file in ../tests/*in.txt
+for file in ../tests/*fullmatrix.txt
 do
     echo "$file: "
-    /usr/bin/time -f "%Us" ./gis $file > "${file%_*}_out.txt"
+    /usr/bin/time -f "%Us" ./gis $file > ${file/fullmatrix/out}
 done
