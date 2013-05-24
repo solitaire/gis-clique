@@ -3,6 +3,7 @@
 \usepackage{polski}
 \usepackage{algorithm}% http://ctan.org/pkg/algorithms
 \usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
+\usepackage[titletoc]{appendix}
 \title{\textbf{Poszukiwanie największej kliki w~grafie}}
 \author{Anna Stępień \\ Adam Stelmaszczyk}
 \date{}
@@ -194,6 +195,138 @@ Do weryfikacji poprawności zwracanych przez algorytm wyników zostanie wykorzys
 Proces generowania rozwiązań referencyjnych oraz porównywania wyników zostanie zautomatyzowany.
 \subsection{Badanie czasu wykonania dla różnych typów grafów}
 Z punktu widzenia analizy zaimplementowanego algorytmu istotne jest zbadanie jego zachowania dla różnych typów grafów. W szczególności przeprowadzone zostaną eksperymenty na zestawach grafów o zróżnicowanej gęstości.
+
+\section{Analiza i badanie zaimplementowanego algorytmu}
+\subsection{Analiza czasów wykonania algorytmu}
+\subsubsection*{Zestaw grafów o gęstości 0,1}
+\begin{table}[H]
+\caption{Statystyki czasowe dla zestawu grafów o gęstości 0,1}
+\begin{center}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    Liczba wierzchołków & Liczba największych klik & Czas [s] \\ \hline
+    10 & 5 & 0.12 \\ \hline
+    20 & 2 & 0.18 \\ \hline
+    30 & 2 & 0.20 \\ \hline
+    40 & 8 & 0.34 \\ \hline
+    50 & 16 & 0.46 \\ \hline
+    60 & 37 & 0.46 \\ \hline
+    70 & 53 & 0.60 \\ \hline
+    80 & 1 & 0.87 \\ \hline
+    90 & 3 & 0.94 \\ \hline
+    100 & 3 & 0.82 \\ \hline
+    \end{tabular}
+\end{center}
+\end{table}
+\subsubsection*{Zestaw grafów o gęstości 0,3}
+\begin{table}[H]
+\caption{Statystyki czasowe dla zestawu grafów o gęstości 0,3}
+\begin{center}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    Liczba wierzchołków & Liczba największych klik & Czas [s] \\ \hline
+    10 & 3 & 0.18 \\ \hline
+    20 & 2 & 0.25 \\ \hline
+    30 & 20 & 0.22 \\ \hline
+    40 & 1 & 0.43 \\ \hline
+    50 & 1 & 0.49 \\ \hline
+    60 & 29 & 0.68 \\ \hline
+    70 & 1 & 1.02 \\ \hline
+    80 & 2 & 1.17 \\ \hline
+    90 & 8 & 1.30 \\ \hline
+    100 & 9 & 1.15 \\ \hline
+    \end{tabular}
+\end{center}
+\end{table}
+
+\subsubsection*{Zestaw grafów o gęstości 0,5}
+\begin{table}[H]
+\caption{Statystyki czasowe dla zestawu grafów o gęstości 0,5}
+\begin{center}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    Liczba wierzchołków & Liczba największych klik & Czas [s] \\ \hline
+    10 & 12 & 0.13 \\ \hline
+    20 & 3 & 0.18 \\ \hline
+    30 & 11 & 0.31 \\ \hline
+    40 & 2 & 0.46 \\ \hline
+    50 & 3 & 0.78 \\ \hline
+    60 & 4 & 1.12 \\ \hline
+    70 & 7 & 1.43 \\ \hline
+    80 & 7 & 1.98 \\ \hline
+    90 & 2 & 2.30 \\ \hline
+    100 & 17 & 2.58 \\ \hline
+    \end{tabular}
+\end{center}
+\end{table}
+\subsubsection*{Zestaw grafów o gęstości 0,7}
+\begin{table}[H]
+\caption{Statystyki czasowe dla zestawu grafów o gęstości 0,7}
+\begin{center}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    Liczba wierzchołków & Liczba największych klik & Czas [s] \\ \hline
+    10 & 4 & 0.13 \\ \hline
+    20 & 2 & 0.24 \\ \hline
+    30 & 23 & 0.42 \\ \hline
+    40 & 2 & 0.72 \\ \hline
+    50 & 16 & 1.68 \\ \hline
+    60 & 24 & 2.29 \\ \hline
+    70 & 1 & 3.04 \\ \hline
+    80 & 92 & 4.83 \\ \hline
+    90 & 39 & 8.17 \\ \hline
+    100 & 52 & 13.99 \\ \hline
+    \end{tabular}
+\end{center}
+\end{table}
+\subsubsection*{Zestaw grafów o gęstości 0,9}
+\begin{table}[H]
+\caption{Statystyki czasowe dla zestawu grafów o gęstości 0,9}
+\begin{center}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    Liczba wierzchołków & Liczba największych klik & Czas [s] \\ \hline
+    10 & 2 & 0.14 \\ \hline
+    20 & 2 & 0.22 \\ \hline
+    30 & 2 & 0.56 \\ \hline
+    40 & 5 & 1.47 \\ \hline
+    50 & 30 & 2.46 \\ \hline
+    60 & 67 & 11.49 \\ \hline
+    70 & 127 & 102.40 \\ \hline
+    80 & 106 & 437.49 \\ \hline
+    90 & * & * \\ \hline
+    100 & * & * \\ \hline
+    \end{tabular}
+\end{center}
+\end{table}
+\subsubsection*{Zestaw grafów pełnych}
+\begin{table}[H]
+\caption{Statystyki czasowe dla zestawu grafów pełnych}
+\begin{center}
+    \begin{tabular}{|l|l|}
+    \hline
+    Liczba wierzchołków & Czas [s] \\ \hline
+    10 & 0.14 \\ \hline
+    20 & 0.27 \\ \hline
+    30 & 0.16 \\ \hline
+    40 & 0.39 \\ \hline
+    50 & 0.53 \\ \hline
+    60 & 0.53 \\ \hline
+    70 & 0.63 \\ \hline
+    80 & 0.74 \\ \hline
+    90 & 0.86 \\ \hline
+    100 & 1.19 \\ \hline
+    \end{tabular}
+\end{center}
+\end{table}
+
+\section{Podsumowanie i wnioski}
+
+\begin{appendices}
+\section{Opis implementacji i instrukcja obsługi}
+\subsection{Kod algorytmu}
+\subsection{Instrukcja obsługi}
+\end{appendices}
 
 \bibliographystyle{plain}
 \bibliography{references}
