@@ -197,6 +197,7 @@ Zbiory przechowujące wierzchołki zostaną zaimplementowane jako klasa $Vertice
 Istotną częścią realizowanego zadania jest przeprowadzenie testów związanych zarówno z poprawnością zwracanych wyników jak również wpływem danych wejściowych na czas wykonania algorytmu.
 
 \subsection{Badanie poprawności zwracanych wyników}
+\label{igraph-testy}
 Do weryfikacji poprawności zwracanych przez algorytm wyników zostanie wykorzystana biblioteka igraph\footnote{http://igraph.sourceforge.net/}, która udostępnia m.in funkcję wyznaczającą maksymalne kliki w zadanym grafie. Podczas testowania planujemy wykorzystać dane zwrócone przez bibliotekę igraph jako rozwiązania referencyjne, które następnie posłużą do porównania z wynikami otrzymanymi przez zaimplementowany algorytm. Rozwiązanie, a więc największa klika zwrócona przez algorytm jest poprawna wtedy, gdy znajduje się na liście rozwiązań referencyjnych.
 
 Proces generowania rozwiązań referencyjnych oraz porównywania wyników zostanie zautomatyzowany.
@@ -211,10 +212,11 @@ W obu eksperymentach wykorzystano następujące zestawy grafów:
 	\item zestaw grafów losowych o gęstości 0,1
 	\item zestaw grafów losowych o gęstości 0,2
 	\item zestaw grafów losowych o gęstości 0,3
-	\item zestaw grafów losowych o gęstości 0,4
+    \item zestaw grafów losowych o gęstości 0,4
 	\item zestaw grafów losowych o gęstości 0,5
 	\item zestaw grafów losowych o gęstości 0,6
 	\item zestaw grafów losowych o gęstości 0,7
+	\item zestaw grafów losowych o gęstości 0,8
 	\item zestaw grafów losowych o gęstości 0,9
 	\item zestaw grafów pełnych
 \end{itemize}
@@ -227,6 +229,8 @@ Podczas analizy zbadane zostały dwa przypadki:
 \end{itemize}
 
 \subsection{Analiza poprawności działania algorytmu}
+Przed przystąpieniem do właściwej analizy działania algorytmu została zweryfikowana poprawność jego implementacji. Do testowania poprawności działania programu wykorzystana została biblioteka igraph. Szczegółowy schemat testowania został przedstawiony w rozdziale \ref{igraph-testy}.
+Testy zostały przeprowadzone na zestawie grafów opisanych na początku niniejszego rozdziału i nie wykazały błędów ani problemów z działaniem algorytmu.
 \subsection{Analiza czasów wykonania algorytmu}
 Dla każdego zestawu grafów dokonane zostały pomiary czasu działania algorytmu. Wyniki zostały zamieszczone poniżej.
 \newpage
@@ -258,6 +262,34 @@ Dla każdego zestawu grafów dokonane zostały pomiary czasu działania algorytm
     \end{center}
 \end{figure}
 
+\subsubsection*{Zestaw grafów o gęstości 0,2}
+\begin{table}[H]
+\caption{Statystyki czasowe dla zestawu grafów o gęstości 0,2}
+\begin{center}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    Liczba wierzchołków & Liczba największych klik & Czas [s] \\ \hline
+    10 & 9 & 0.11 \\ \hline
+    20 & 1 & 0.22 \\ \hline
+    30 & 5 & 0.20 \\ \hline
+    40 & 5 & 0.34 \\ \hline
+    50 & 10 & 0.34 \\ \hline
+    60 & 22 & 0.59 \\ \hline
+    70 & 1 & 0.72 \\ \hline
+    80 & 1 & 0.93 \\ \hline
+    90 & 4 & 1.12 \\ \hline
+    100 & 10 & 1.06 \\ \hline
+    \end{tabular}
+\end{center}
+\end{table}
+
+\begin{figure}[h]
+    \begin{center}
+	\includegraphics[scale=0.5]{../experiment_1/img/den/den_02.png}
+	\caption{Wykres zależności czasu wykonania od liczby wierzchołków dla grafów o gęstości 0,2}
+    \end{center}
+\end{figure}
+
 \subsubsection*{Zestaw grafów o gęstości 0,3}
 \begin{table}[H]
 \caption{Statystyki czasowe dla zestawu grafów o gęstości 0,3}
@@ -283,6 +315,34 @@ Dla każdego zestawu grafów dokonane zostały pomiary czasu działania algorytm
     \begin{center}
 	\includegraphics[scale=0.5]{../experiment_1/img/den/den_03.png}
 	\caption{Wykres zależności czasu wykonania od liczby wierzchołków dla grafów o gęstości 0,3}
+    \end{center}
+\end{figure}
+
+\subsubsection*{Zestaw grafów o gęstości 0,4}
+\begin{table}[H]
+\caption{Statystyki czasowe dla zestawu grafów o gęstości 0,4}
+\begin{center}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    Liczba wierzchołków & Liczba największych klik & Czas [s] \\ \hline
+    10 & 7 & 0.18 \\ \hline
+    20 & 10 & 0.28 \\ \hline
+    30 & 6 & 0.20 \\ \hline
+    40 & 6 & 0.31 \\ \hline
+    50 & 10 & 0.59 \\ \hline
+    60 & 32 & 0.86 \\ \hline
+    70 & 5 & 1.02 \\ \hline
+    80 & 5 & 1.41 \\ \hline
+    90 & 9 & 1.73 \\ \hline
+    100 & 49 & 1.55 \\ \hline
+    \end{tabular}
+\end{center}
+\end{table}
+
+\begin{figure}[h]
+    \begin{center}
+	\includegraphics[scale=0.5]{../experiment_1/img/den/den_04.png}
+	\caption{Wykres zależności czasu wykonania od liczby wierzchołków dla grafów o gęstości 0,4}
     \end{center}
 \end{figure}
 
@@ -314,6 +374,34 @@ Dla każdego zestawu grafów dokonane zostały pomiary czasu działania algorytm
     \end{center}
 \end{figure}
 
+\subsubsection*{Zestaw grafów o gęstości 0,6}
+\begin{table}[H]
+\caption{Statystyki czasowe dla zestawu grafów o gęstości 0,6}
+\begin{center}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    Liczba wierzchołków & Liczba największych klik & Czas [s] \\ \hline
+    10 & 1 & 0.17 \\ \hline
+    20 & 3 & 0.16 \\ \hline
+    30 & 15 & 0.31 \\ \hline
+    40 & 1 & 0.68 \\ \hline
+    50 & 1 & 1.15 \\ \hline
+    60 & 34 & 1.41 \\ \hline
+    70 & 5 & 2.29 \\ \hline
+    80 & 1 & 2.83 \\ \hline
+    90 & 3 & 3.41 \\ \hline
+    100 & 48 & 2.96 \\ \hline
+    \end{tabular}
+\end{center}
+\end{table}
+
+\begin{figure}[h]
+    \begin{center}
+	\includegraphics[scale=0.5]{../experiment_1/img/den/den_06.png}
+	\caption{Wykres zależności czasu wykonania od liczby wierzchołków dla grafów o gęstości 0,6}
+    \end{center}
+\end{figure}
+
 \subsubsection*{Zestaw grafów o gęstości 0,7}
 \begin{table}[H]
 \caption{Statystyki czasowe dla zestawu grafów o gęstości 0,7}
@@ -339,6 +427,34 @@ Dla każdego zestawu grafów dokonane zostały pomiary czasu działania algorytm
     \begin{center}
 	\includegraphics[scale=0.5]{../experiment_1/img/den/den_07.png}
 	\caption{Wykres zależności czasu wykonania od liczby wierzchołków dla grafów o gęstości 0,7}
+    \end{center}
+\end{figure}
+
+\subsubsection*{Zestaw grafów o gęstości 0,8}
+\begin{table}[H]
+\caption{Statystyki czasowe dla zestawu grafów o gęstości 0,8}
+\begin{center}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    Liczba wierzchołków & Liczba największych klik & Czas [s] \\ \hline
+    10 & 3 & 0.13 \\ \hline
+    20 & 38 & 0.28 \\ \hline
+    30 & 15 & 0.51 \\ \hline
+    40 & 2 & 1.25 \\ \hline
+    50 & 47 & 2.45 \\ \hline
+    60 & 17 & 3.41 \\ \hline
+    70 & 5 & 7.49 \\ \hline
+    80 & 9 & 18.25 \\ \hline
+    90 & 58 & 63.27 \\ \hline
+    100 & 29 & 174.22 \\ \hline
+    \end{tabular}
+\end{center}
+\end{table}
+
+\begin{figure}[h]
+    \begin{center}
+	\includegraphics[scale=0.5]{../experiment_1/img/den/den_08.png}
+	\caption{Wykres zależności czasu wykonania od liczby wierzchołków dla grafów o gęstości 0,8}
     \end{center}
 \end{figure}
 
@@ -482,10 +598,12 @@ Dla każdego zestawu grafów dokonane zostały pomiary czasu działania algorytm
     \end{center}
 \end{figure}
 \FloatBarrier
+
 \section{Podsumowanie i wnioski}
 
 \begin{appendices}
 \section{Opis implementacji i instrukcja obsługi}
+TODO
 \subsection{Kod algorytmu}
 \subsection{Instrukcja obsługi}
 \end{appendices}
