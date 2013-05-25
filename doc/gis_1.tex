@@ -196,8 +196,25 @@ Proces generowania rozwiązań referencyjnych oraz porównywania wyników zostan
 \subsection{Badanie czasu wykonania dla różnych typów grafów}
 Z punktu widzenia analizy zaimplementowanego algorytmu istotne jest zbadanie jego zachowania dla różnych typów grafów. W szczególności przeprowadzone zostaną eksperymenty na zestawach grafów o zróżnicowanej gęstości.
 
-\section{Analiza i badanie zaimplementowanego algorytmu}
+\section{Analiza zaimplementowanego algorytmu}
+W ramach części badawczej projektu zrealizowane zostały dwa rodzaje testów: testy wykazujące poprawność implementacji algorytmu oraz testy badające jego zachowanie dla różnych typów grafów.
+
+W obu eksperymentach wykorzystano następujące zestawy grafów:
+\begin{itemize}
+	\item zestaw grafów losowych o gęstości 0,1
+	\item zestaw grafów losowych o gęstości 0,2
+	\item zestaw grafów losowych o gęstości 0,3
+	\item zestaw grafów losowych o gęstości 0,4
+	\item zestaw grafów losowych o gęstości 0,5
+	\item zestaw grafów losowych o gęstości 0,6
+	\item zestaw grafów losowych o gęstości 0,7
+	\item zestaw grafów losowych o gęstości 0,9
+	\item zestaw grafów pełnych
+\end{itemize}
+W każdym zestawie znalazły się grafy o liczbie wierzchołków: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100.
+\subsection{Analiza poprawności działania algorytmu}
 \subsection{Analiza czasów wykonania algorytmu}
+Dla każdego zestawu grafów dokonane zostały pomiary czasu działania algorytmu. Wyniki zostały zamieszczone poniżej.
 \subsubsection*{Zestaw grafów o gęstości 0,1}
 \begin{table}[H]
 \caption{Statystyki czasowe dla zestawu grafów o gęstości 0,1}
