@@ -1,4 +1,4 @@
-for FILE in *.txt; do
+for FILE in den*; do
 gnuplot <<- EOF
         set xlabel "liczba wierzchołków"
         set ylabel "czas [s]"

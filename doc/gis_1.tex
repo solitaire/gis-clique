@@ -4,12 +4,19 @@
 \usepackage{algorithm}% http://ctan.org/pkg/algorithms
 \usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
 \usepackage[titletoc]{appendix}
+\usepackage{graphicx}  
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{geometry}
 \title{\textbf{Poszukiwanie największej kliki w~grafie}}
 \author{Anna Stępień \\ Adam Stelmaszczyk}
 \date{}
 \setlength{\parindent}{0in}
 \renewcommand\refname{Referencje}
 \makeatletter\renewcommand{\ALG@name}{}
+
+\newgeometry{tmargin=2.5cm, bmargin=2.5cm, lmargin=3cm, rmargin=3cm}
+
 \begin{document}
 \maketitle
 \tableofcontents
@@ -45,14 +52,14 @@ $
 
 $q_{i,j}$ równe 0 oznacza, że wierzchołki i oraz j nie są połączone krawędzią. W~przeciwnym razie, wierzchołki są połączone.
 \par\vspace{\baselineskip}
-Macierz jest dana w pliku tekstowym, w formacie FullMatrix\footnote{{http://www.analytictech.com/networks/dataentry.htm}}, w którym pierwszy wiersz specyfikuje liczbę wierszy macierzy, następny informuje o początku danych, natomiast kolejne wiersze definiują właściwą macierz sąsiedztwa grafu.
+Macierz jest dana w pliku tekstowym, w którym kolejne $q_{i,j}$ w wierszu $j$ są
+oddzielone co najmniej jednym znakiem białym. Przez znak biały rozumiemy
+spację lub tabulator. $q_{i,j}$ różne od 0 będą traktowane jak 1.
 
-\newpage
 Poniżej przedstawiono przykładowy, poprawny plik wejściowy.
 
 \bigskip
-DL N = 4 \\
-Data: \\
+
 $ 
 \begin{array}{cccc}
 0 & 1 & 0 & 0 \\
@@ -212,9 +219,17 @@ W obu eksperymentach wykorzystano następujące zestawy grafów:
 	\item zestaw grafów pełnych
 \end{itemize}
 W każdym zestawie znalazły się grafy o liczbie wierzchołków: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100.
+
+Podczas analizy zbadane zostały dwa przypadki:
+\begin{itemize}
+	\item wpływ liczby wierzchołków dla grafów o ustalonej gęstości,
+	\item wpływ gęstości dla grafów o ustalonej liczbie wierzchołków.
+\end{itemize}
+
 \subsection{Analiza poprawności działania algorytmu}
 \subsection{Analiza czasów wykonania algorytmu}
 Dla każdego zestawu grafów dokonane zostały pomiary czasu działania algorytmu. Wyniki zostały zamieszczone poniżej.
+\newpage
 \subsubsection*{Zestaw grafów o gęstości 0,1}
 \begin{table}[H]
 \caption{Statystyki czasowe dla zestawu grafów o gęstości 0,1}
@@ -235,6 +250,14 @@ Dla każdego zestawu grafów dokonane zostały pomiary czasu działania algorytm
     \end{tabular}
 \end{center}
 \end{table}
+
+\begin{figure}[h]
+    \begin{center}
+	\includegraphics[scale=0.5]{../experiment_1/img/den/den_01.png}
+	\caption{Wykres zależności czasu wykonania od liczby wierzchołków dla grafów o gęstości 0,1}
+    \end{center}
+\end{figure}
+
 \subsubsection*{Zestaw grafów o gęstości 0,3}
 \begin{table}[H]
 \caption{Statystyki czasowe dla zestawu grafów o gęstości 0,3}
@@ -256,6 +279,13 @@ Dla każdego zestawu grafów dokonane zostały pomiary czasu działania algorytm
 \end{center}
 \end{table}
 
+\begin{figure}[h]
+    \begin{center}
+	\includegraphics[scale=0.5]{../experiment_1/img/den/den_03.png}
+	\caption{Wykres zależności czasu wykonania od liczby wierzchołków dla grafów o gęstości 0,3}
+    \end{center}
+\end{figure}
+
 \subsubsection*{Zestaw grafów o gęstości 0,5}
 \begin{table}[H]
 \caption{Statystyki czasowe dla zestawu grafów o gęstości 0,5}
@@ -276,6 +306,14 @@ Dla każdego zestawu grafów dokonane zostały pomiary czasu działania algorytm
     \end{tabular}
 \end{center}
 \end{table}
+
+\begin{figure}[h]
+    \begin{center}
+	\includegraphics[scale=0.5]{../experiment_1/img/den/den_05.png}
+	\caption{Wykres zależności czasu wykonania od liczby wierzchołków dla grafów o gęstości 0,5}
+    \end{center}
+\end{figure}
+
 \subsubsection*{Zestaw grafów o gęstości 0,7}
 \begin{table}[H]
 \caption{Statystyki czasowe dla zestawu grafów o gęstości 0,7}
@@ -296,6 +334,14 @@ Dla każdego zestawu grafów dokonane zostały pomiary czasu działania algorytm
     \end{tabular}
 \end{center}
 \end{table}
+
+\begin{figure}[h]
+    \begin{center}
+	\includegraphics[scale=0.5]{../experiment_1/img/den/den_07.png}
+	\caption{Wykres zależności czasu wykonania od liczby wierzchołków dla grafów o gęstości 0,7}
+    \end{center}
+\end{figure}
+
 \subsubsection*{Zestaw grafów o gęstości 0,9}
 \begin{table}[H]
 \caption{Statystyki czasowe dla zestawu grafów o gęstości 0,9}
@@ -316,6 +362,14 @@ Dla każdego zestawu grafów dokonane zostały pomiary czasu działania algorytm
     \end{tabular}
 \end{center}
 \end{table}
+
+\begin{figure}[h]
+    \begin{center}
+	\includegraphics[scale=0.5]{../experiment_1/img/den/den_09.png}
+	\caption{Wykres zależności czasu wykonania od liczby wierzchołków dla grafów o gęstości 0,9}
+    \end{center}
+\end{figure}
+
 \subsubsection*{Zestaw grafów pełnych}
 \begin{table}[H]
 \caption{Statystyki czasowe dla zestawu grafów pełnych}
@@ -337,6 +391,97 @@ Dla każdego zestawu grafów dokonane zostały pomiary czasu działania algorytm
 \end{center}
 \end{table}
 
+\begin{figure}[h]
+    \begin{center}
+	\includegraphics[scale=0.5]{../experiment_1/img/den/den_1.png}
+	\caption{Wykres zależności czasu wykonania od liczby wierzchołków dla grafów pełnych}
+    \end{center}
+\end{figure}
+\newpage
+\subsubsection*{Zestaw grafów o 10 wierzchołkach}
+\begin{figure}[!h]
+    \begin{center}
+	\includegraphics[scale=0.5]{../experiment_1/img/dim/dim_10.png}
+	\caption{Wykres zależności czasu wykonania od gęstości dla grafów o 10 wierzchołkach}
+    \end{center}
+\end{figure}
+\FloatBarrier
+\subsubsection*{Zestaw grafów o 20 wierzchołkach}
+\begin{figure}[!h]
+    \begin{center}
+	\includegraphics[scale=0.5]{../experiment_1/img/dim/dim_20.png}
+	\caption{Wykres zależności czasu wykonania od gęstości dla grafów o 20 wierzchołkach}
+    \end{center}
+\end{figure}
+\FloatBarrier
+\newpage
+\subsubsection*{Zestaw grafów o 30 wierzchołkach}
+\begin{figure}[!h]
+    \begin{center}
+	\includegraphics[scale=0.5]{../experiment_1/img/dim/dim_30.png}
+	\caption{Wykres zależności czasu wykonania od gęstości dla grafów o 30 wierzchołkach}
+    \end{center}
+\end{figure}
+\FloatBarrier
+\subsubsection*{Zestaw grafów o 40 wierzchołkach}
+\begin{figure}[!h]
+    \begin{center}
+	\includegraphics[scale=0.5]{../experiment_1/img/dim/dim_40.png}
+	\caption{Wykres zależności czasu wykonania od gęstości dla grafów o 40 wierzchołkach}
+    \end{center}
+\end{figure}
+\FloatBarrier
+\newpage
+\subsubsection*{Zestaw grafów o 50 wierzchołkach}
+\begin{figure}[!h]
+    \begin{center}
+	\includegraphics[scale=0.5]{../experiment_1/img/dim/dim_50.png}
+	\caption{Wykres zależności czasu wykonania od gęstości dla grafów o 50 wierzchołkach}
+    \end{center}
+\end{figure}
+\FloatBarrier
+\subsubsection*{Zestaw grafów o 60 wierzchołkach}
+\begin{figure}[!h]
+    \begin{center}
+	\includegraphics[scale=0.5]{../experiment_1/img/dim/dim_60.png}
+	\caption{Wykres zależności czasu wykonania od gęstości dla grafów o 60 wierzchołkach}
+    \end{center}
+\end{figure}
+\FloatBarrier
+\newpage
+\subsubsection*{Zestaw grafów o 70 wierzchołkach}
+\begin{figure}[!h]
+    \begin{center}
+	\includegraphics[scale=0.5]{../experiment_1/img/dim/dim_70.png}
+	\caption{Wykres zależności czasu wykonania od gęstości dla grafów o 70 wierzchołkach}
+    \end{center}
+\end{figure}
+\FloatBarrier
+\subsubsection*{Zestaw grafów o 80 wierzchołkach}
+\begin{figure}[!h]
+    \begin{center}
+	\includegraphics[scale=0.5]{../experiment_1/img/dim/dim_80.png}
+	\caption{Wykres zależności czasu wykonania od gęstości dla grafów o 80 wierzchołkach}
+    \end{center}
+\end{figure}
+\FloatBarrier
+\newpage
+\subsubsection*{Zestaw grafów o 90 wierzchołkach}
+\begin{figure}[!h]
+    \begin{center}
+	\includegraphics[scale=0.5]{../experiment_1/img/dim/dim_90.png}
+	\caption{Wykres zależności czasu wykonania od gęstości dla grafów o 90 wierzchołkach}
+    \end{center}
+\end{figure}
+\FloatBarrier
+\subsubsection*{Zestaw grafów o 100 wierzchołkach}
+\begin{figure}[!h]
+    \begin{center}
+	\includegraphics[scale=0.5]{../experiment_1/img/dim/dim_100.png}
+	\caption{Wykres zależności czasu wykonania od gęstości dla grafów o 100 wierzchołkach}
+    \end{center}
+\end{figure}
+\FloatBarrier
 \section{Podsumowanie i wnioski}
 
 \begin{appendices}

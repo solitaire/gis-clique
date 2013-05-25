@@ -1,4 +1,4 @@
-for FILE in *.txt; do
+for FILE in dim*; do
 gnuplot <<- EOF
         set xlabel "gęstość grafu"
         set ylabel "czas [s]"
