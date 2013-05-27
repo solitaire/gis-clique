@@ -232,7 +232,9 @@ Podczas analizy zbadane zostały dwa przypadki:
 \subsection{Analiza poprawności działania algorytmu}
 Przed przystąpieniem do właściwej analizy działania algorytmu została zweryfikowana poprawność jego implementacji. Do testowania poprawności działania programu wykorzystana została biblioteka igraph. Szczegółowy schemat testowania został przedstawiony w rozdziale \ref{igraph-testy}.
 Testy zostały przeprowadzone na zestawie grafów opisanych na początku niniejszego rozdziału i nie wykazały błędów ani problemów z działaniem algorytmu.
+
 \subsection{Analiza czasów wykonania algorytmu}
+\label{testy}
 Dla każdego zestawu grafów dokonane zostały pomiary czasu działania algorytmu. Wyniki zostały zamieszczone poniżej.
 \newpage
 \subsubsection*{Zestaw grafów o gęstości 0,1}
@@ -601,28 +603,55 @@ Dla każdego zestawu grafów dokonane zostały pomiary czasu działania algorytm
 \FloatBarrier
 
 \section{Podsumowanie i wnioski}
+W ramach projektu zrealizowana została aplikacja umożliwiająca znalezienie największej kliki w zadanym grafie. Zaimplementowany algorytm został przetestowany pod kątem poprawnego działania jak również wykonane zostały badania mające na celu zbadanie jego zachowania dla grafów o zróżnicowanej gęstości.
 
+W wyniku eksperymentu przeprowadzonego na zestawie grafów losowych obejmującego grafy o liczbie wierzchołków 10, 20, 30, 40, 50, 60, 70, 80, 100 oraz gęstościach z przedziału 0,1 -- 1 uzyskano rezultaty czasowe zaprezentowane w rozdziale \ref{testy}.
+
+Analizując otrzymane wyniki można zauważyć, iż dla grafów o gęstościach z przedziału 0,1 -- 0,6 czas wykonania wzrasta w sposób zbliżony do liniowego wraz ze wzrostem liczby wierzchołków grafu. Odmienna sytuacja ma miejsce dla grafów o gęstości z przedziału 0,7 -- 0,9 -- czas wykonania algorytmu rośnie wykładniczo wraz ze wzrostem liczby wierzchołków. Prawidłowość ta jest szczególnie widoczna dla grafów o gęstości 0,9. 
+
+Osobną klasę grafów stanowią grafy pełne, dla których czasy wykonania zależą, podobnie jak w przypadku grafów rzadkich, w sposób zbliżony do liniowego od liczby wierzchołków.
+
+Na podstawie analizy wyników można stwierdzić, że zaimplementowany algorytm silnie zależy zarówno od rozmiaru grafu jak i jego gęstości. W przypadku grafów rzadkich oraz pełnych czasy uzyskiwane przez algorytm nie przekroczyły kilku sekund dla grafów o 100 wierzchołkach. Niestety, w przypadku jednocześnie dużej gęstości i liczby wierzchołków grafu ujawnia się wykładnicza złożoność algorytmu i czas działania drastycznie wzrasta (czego przykładem jest wynik dla grafu o 100 wierzchołkach i gęstości 0,9 sięgający prawie 3 godzin).
 \begin{appendices}
 \section{Zawartość katalogów}
 
 Opis zawartości poszczególnych katalogów:
 
 \begin{itemize}
- \item doc - Zawiera ten plik PDF.
- \item experiment\_1 - Pliki dla testów wydajnościowych.
- \item gis-c - Wywołanie biblioteki igraph w języku C.
- \item java-workspace - Implementacja w języku Java bez użycia biblioteki.
+ \item java-workspace - implementacja algorytmu będącego przedmiotem projektu,
+ \item gis-c - pomocniczy program generujący rozwiązania referencyjne z wykorzystaniem biblioteki igraph,
  \item tests - Pliki dla testów weryfikujących poprawność implementacji.
+ 	\begin{itemize}
+ 		\item correctness - pliki z grafami wykorzystanymi podczas analizy czasów wykonania algorytmu i jego poprawności,
+ 		\item performance - pliki z grafami wykorzystanymi do weryfikacji wstępnej poprawności algorytmu.
+ 	\end{itemize}
+ \item doc - dokumentacja projektu.
 \end{itemize}
 
 \section{Instrukcja obsługi}
 
-Aby przetestować naszą implementację w Javie z plikiem wejściowym 123\_in.txt należy:
-
+Aplikacja działa w trybie konsolowym. W celu jej uruchomienia należy wykonać następujące kroki:
 \begin{enumerate}
- \item Skompilować kod Javy. W tym celu wystarczy uruchomić skrypt java-workspace/build.sh.
- \item Plik wejściowy 123\_in.txt skopiować do katalogu tests.
- \item Uruchomić skrypt java-workspace/run.sh.
+ \item skompilować kod Javy. W tym celu wystarczy uruchomić skrypt java-workspace/build.sh.
+ \item przygotować plik/pliki wejściowe
+ \item uruchomić program jednym z możliwych sposobów:
+ \begin{itemize}
+ 	\item proste uruchomienie \\
+ 	Należy wykonać następujące polecenie: \\
+ 	\texttt{java -cp bin main/Main < plik\_wejściowy}
+ 	\item uruchomienie z wykorzystaniem skryptu
+ 	Wraz z programem dostarczone są dwa skrypty ułatwiające uruchamianie i testowanie aplikacji:
+ 	\begin{itemize}
+ 		\item \texttt{run\_basic.sh} \\
+ 		W wyniku działania zwracany jest czas wykonania oraz znaleziona największa klika.\\
+ 		 Przykład wykorzystania:
+ 		\texttt{run\_basic.sh graf1 graf2} (na wejście można przekazać wiele plików)
+ 		\item \texttt{run\_test.sh} \\
+ 		Skrypt umożliwia działanie aplikacji w dwóch trybach: standardowym jak w przypadku \texttt{run\_basic.sh} oraz rozszerzonym, weryfikującym znalezione rozwiązanie z rozwiązaniem referencyjnym. Skrypt poszukuje rozwiązanie w pliku o zaczynającym się taką samą nazwą jak plik wejściowy i kończącym się przyrostkiem \texttt{out}. W przypadku nie znalezienia pliku z rozwiązaniem aplikacja zostaje uruchomiona w trybie standardowym. \\
+ 		Przykład wykorzystania:
+ 		\texttt{run\_test.sh graf1 graf2} (na wejście można przekazać wiele plików)
+ 	\end{itemize}
+ \end{itemize}
 \end{enumerate}
 
 \end{appendices}
