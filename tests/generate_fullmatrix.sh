@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for file in *in.txt
+for file in $1/*in.txt
 do
     if [[ "$file" == *in* ]]
     then

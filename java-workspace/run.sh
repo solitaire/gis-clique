@@ -1,6 +1,6 @@
 #!/bin/sh
 
-for file in ../tests/*in.txt
+for file in $1/*in.txt
 do
     echo -n "$file: "
     answer=$(/usr/bin/time -f "%Us" java -cp bin main/Main < $file)
