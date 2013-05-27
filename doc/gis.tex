@@ -603,7 +603,28 @@ Dla każdego zestawu grafów dokonane zostały pomiary czasu działania algorytm
 \section{Podsumowanie i wnioski}
 
 \begin{appendices}
-\section{Opis implementacji i instrukcja obsługi}
+\section{Zawartość katalogów}
+
+Opis zawartości poszczególnych katalogów:
+
+\begin{itemize}
+ \item doc - Zawiera ten plik PDF.
+ \item experiment\_1 - Pliki dla testów wydajnościowych.
+ \item gis-c - Wywołanie biblioteki igraph w języku C.
+ \item java-workspace - Implementacja w języku Java bez użycia biblioteki.
+ \item tests - Pliki dla testów weryfikujących poprawność implementacji.
+\end{itemize}
+
+\section{Instrukcja obsługi}
+
+Aby przetestować naszą implementację w Javie z plikiem wejściowym 123\_in.txt należy:
+
+\begin{enumerate}
+ \item Skompilować kod Javy. W tym celu wystarczy uruchomić skrypt java-workspace/build.sh.
+ \item Plik wejściowy 123\_in.txt skopiować do katalogu tests.
+ \item Uruchomić skrypt java-workspace/run.sh.
+\end{enumerate}
+
 \end{appendices}
 
 \bibliographystyle{plain}
