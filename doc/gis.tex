@@ -1,6 +1,7 @@
 \documentclass[12pt, a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{polski}
+\usepackage{hyperref}
 \usepackage{algorithm}% http://ctan.org/pkg/algorithms
 \usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
 \usepackage[titletoc]{appendix}
@@ -198,7 +199,7 @@ Istotną częścią realizowanego zadania jest przeprowadzenie testów związany
 
 \subsection{Badanie poprawności zwracanych wyników}
 \label{igraph-testy}
-Do weryfikacji poprawności zwracanych przez algorytm wyników zostanie wykorzystana biblioteka igraph\footnote{http://igraph.sourceforge.net/}, która udostępnia m.in funkcję wyznaczającą maksymalne kliki w zadanym grafie. Podczas testowania planujemy wykorzystać dane zwrócone przez bibliotekę igraph jako rozwiązania referencyjne, które następnie posłużą do porównania z wynikami otrzymanymi przez zaimplementowany algorytm. Rozwiązanie, a więc największa klika zwrócona przez algorytm jest poprawna wtedy, gdy znajduje się na liście rozwiązań referencyjnych.
+Do weryfikacji poprawności zwracanych przez algorytm wyników zostanie wykorzystana biblioteka igraph\footnote{\url{http://igraph.sourceforge.net/}}, która udostępnia m.in funkcję wyznaczającą maksymalne kliki w zadanym grafie. Podczas testowania planujemy wykorzystać dane zwrócone przez bibliotekę igraph jako rozwiązania referencyjne, które następnie posłużą do porównania z wynikami otrzymanymi przez zaimplementowany algorytm. Rozwiązanie, a więc największa klika zwrócona przez algorytm jest poprawna wtedy, gdy znajduje się na liście rozwiązań referencyjnych.
 
 Proces generowania rozwiązań referencyjnych oraz porównywania wyników zostanie zautomatyzowany.
 \subsection{Badanie czasu wykonania dla różnych typów grafów}
