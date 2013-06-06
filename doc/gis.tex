@@ -219,13 +219,15 @@ W obu eksperymentach wykorzystano następujące zestawy grafów:
 	\item zestaw grafów losowych o gęstości 0,9
 	\item zestaw grafów pełnych
 \end{itemize}
-W każdym zestawie znalazły się grafy o liczbie wierzchołków: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100.
+W każdym zestawie znalazły się grafy o liczbie wierzchołków: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100. Eksperymenty wykonane zostały na próbie 10 zestawów.
 
 Podczas analizy zbadane zostały dwa przypadki:
 \begin{itemize}
 	\item wpływ liczby wierzchołków dla grafów o ustalonej gęstości,
 	\item wpływ gęstości dla grafów o ustalonej liczbie wierzchołków.
 \end{itemize}
+
+Dodatkowo przeprowadzono eksperyment dla dwóch grafów posiadających największą klikę o znanej wcześniej wielkości. Uwzględnione zostały grafy o 20 wierzchołkach i największej klice liczącej 10 wierzchołków oraz graf o 50 wierzchołkach i największej klice liczącej 40 wierzchołków. Eksperyment polegał na stopniowym "obudowywaniu" kliki poprzez dodawanie kolejnych krawędzi (z zachowaniem wielkości największej kliki) i porównaniu czasów wykonania algorytmu dla zmodyfikowanych grafów.
 
 \subsection{Analiza poprawności działania algorytmu}
 Przed przystąpieniem do właściwej analizy działania algorytmu została zweryfikowana poprawność jego implementacji. Do testowania poprawności działania programu wykorzystana została biblioteka igraph. Szczegółowy schemat testowania został przedstawiony w rozdziale \ref{igraph-testy}.
@@ -600,12 +602,46 @@ Dla każdego zestawu grafów dokonane zostały pomiary czasu działania algorytm
 \end{figure}
 \FloatBarrier
 
+\subsubsection*{Grafy o znanej wielkości największej kliki}
+\begin{table}[H]
+\caption{Graf o 20 wierzchołkach i największej klice składającej się z 10 wierzchołków}
+\begin{center}
+    \begin{tabular}{|l|l|}
+    \hline
+    Liczba dodanych krawędzi & Czas [s] \\ \hline
+    0 & 0,12 \\ \hline
+    1 & 0,12 \\ \hline
+    2 & 0,12 \\ \hline
+    5 & 0,15 \\ \hline
+    10 & 0,16 \\ \hline
+    20 & 0,16 \\ \hline
+    \end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{Graf o 50 wierzchołkach i największej klice składającej się z 40 wierzchołków}
+\begin{center}
+    \begin{tabular}{|l|l|}
+    \hline
+    Liczba dodanych krawędzi & Czas [s] \\ \hline
+    0 & 0,25 \\ \hline
+    1 & 0,25 \\ \hline
+    2 & 0,25 \\ \hline
+    5 & 0,26 \\ \hline
+    10 & 0,26 \\ \hline
+    20 & 0,27 \\ \hline
+    40 & 0,28 \\ \hline
+    \end{tabular}
+\end{center}
+\end{table}
+
 \section{Podsumowanie i wnioski}
 W ramach projektu zrealizowana została aplikacja umożliwiająca znalezienie największej kliki w zadanym grafie. 
 Zaimplementowany algorytm został przetestowany pod kątem poprawnego działania jak również wykonane 
 zostały badania mające na celu zbadanie jego zachowania dla grafów o zróżnicowanej gęstości.
 
-W wyniku eksperymentu przeprowadzonego na zestawie grafów losowych obejmującego grafy o liczbie wierzchołków 
+W wyniku eksperymentu przeprowadzonego na próbie 10 zestawów grafów losowych obejmującego grafy o liczbie wierzchołków 
 10, 20, 30, 40, 50, 60, 70, 80, 100 oraz gęstościach z przedziału 0,1 -- 1 uzyskano rezultaty czasowe zaprezentowane w rozdziale \ref{testy}.
 
 Analizując otrzymane wyniki można zauważyć, iż dla grafów o gęstościach z przedziału 0,1 -- 0,6 czas wykonania
@@ -617,12 +653,16 @@ Prawidłowość ta jest szczególnie widoczna dla grafów o gęstości 0,9.
 Osobną klasę grafów stanowią grafy pełne, dla których czasy wykonania zależą, podobnie jak w przypadku grafów rzadkich, 
 w sposób zbliżony do liniowego od liczby wierzchołków.
 
-Na podstawie analizy wyników można stwierdzić, że zaimplementowany algorytm silnie zależy 
-zarówno od rozmiaru grafu jak i jego gęstości. W przypadku grafów rzadkich oraz pełnych czasy uzyskiwane przez
+Analizując wyniki dla grafów o określonej liczbie wierzchołków można zauważyć, iż dla grafów o 40 i więcej wierzchołkach zależność czasu wykonania od liczby wierzchołków ma charakter wykładniczy. W przypadku grafów o mniejszej liczbie wierzchołków (10, 20  i 30) prawidłowość ta nie występuje.
+
+Na podstawie analizy wyników można stwierdzić, że zaimplementowany algorytm silnie zależy zarówno od rozmiaru grafu jak i jego gęstości. W przypadku grafów rzadkich oraz pełnych czasy uzyskiwane przez
  algorytm nie przekroczyły kilku sekund dla grafów o 100 wierzchołkach. 
 Niestety, w przypadku jednocześnie dużej gęstości i liczby wierzchołków grafu ujawnia się wykładnicza złożoność 
 algorytmu i czas działania drastycznie wzrasta (czego przykładem jest wynik dla grafu o 100 wierzchołkach
 i gęstości 0,9 sięgający prawie 3 godzin).
+
+Ponadto dodatkowy eksperyment wykazał, iż dla danego grafu, posiadającego pewną największą klikę, zwiększanie jego gęstości poprzez stopniowe dodawanie krawędzi (ale bez wpływu na rozmiar największej kliki) spowodowało wzrost czasu działania algorytmu.
+
 \begin{appendices}
 \section{Zawartość katalogów}
 
